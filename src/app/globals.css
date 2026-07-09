@@ -1,26 +1,184 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Class-based dark mode — .dark class bilan boshqarish */
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Primary: Brand ko'k #255FA3 */
+  --color-primary-50: #f0f5fb;
+  --color-primary-100: #dce8f5;
+  --color-primary-200: #b8d1eb;
+  --color-primary-300: #85b0dc;
+  --color-primary-400: #4d8cc8;
+  --color-primary-500: #255FA3;
+  --color-primary-600: #1f5190;
+  --color-primary-700: #1a4278;
+  --color-primary-800: #153460;
+  --color-primary-900: #0e2340;
+  --color-primary-950: #091626;
+
+  /* Secondary: Brand yashil #22A978 */
+  --color-secondary-50: #edfbf5;
+  --color-secondary-100: #d4f5e7;
+  --color-secondary-200: #a6eacd;
+  --color-secondary-300: #6ddaac;
+  --color-secondary-400: #38c48f;
+  --color-secondary-500: #22A978;
+  --color-secondary-600: #1b8d64;
+  --color-secondary-700: #157151;
+  --color-secondary-800: #10573e;
+  --color-secondary-900: #0a3d2c;
+  --color-secondary-950: #062419;
+
+  /* Accent: Oltin rang */
+  --color-accent-50: #fefbeb;
+  --color-accent-100: #fef3c7;
+  --color-accent-200: #fde68a;
+  --color-accent-300: #fcd34d;
+  --color-accent-400: #fbbf24;
+  --color-accent-500: #d4a40f;
+  --color-accent-600: #a8830c;
+  --color-accent-700: #7c6209;
+  --color-accent-800: #504106;
+  --color-accent-900: #282003;
+
+  --font-display: var(--font-montserrat);
+  --font-body: var(--font-roboto);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ===== BASE ===== */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
 }
+
+/* ===== LIGHT MODE ===== */
+
+.gradient-bg {
+  background: linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-secondary-500) 100%);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-secondary-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass header - light */
+.glass {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(37, 95, 163, 0.12);
+  box-shadow: 0 1px 3px rgba(37, 95, 163, 0.06);
+}
+
+/* Cards - light */
+.glass-card {
+  background: #ffffff;
+  border: 1px solid rgba(37, 95, 163, 0.1);
+  border-radius: 1.25rem;
+  box-shadow: 0 1px 3px rgba(37, 95, 163, 0.06), 0 4px 12px rgba(37, 95, 163, 0.04);
+}
+
+/* Section fon - brand tinted */
+.section-alt {
+  background: var(--color-primary-50);
+}
+
+/* ===== DARK MODE ===== */
+
+.dark .glass {
+  background: rgba(9, 22, 38, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(34, 169, 120, 0.15);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.dark .glass-card {
+  background: rgba(14, 35, 64, 0.7);
+  border: 1px solid rgba(37, 95, 163, 0.25);
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dark .glass-card:hover {
+  border-color: rgba(34, 169, 120, 0.3);
+}
+
+.dark .section-alt {
+  background: rgba(14, 35, 64, 0.3);
+}
+
+.dark .gradient-text {
+  background: linear-gradient(135deg, var(--color-primary-300) 0%, var(--color-secondary-400) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark .gradient-bg {
+  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-secondary-600) 100%);
+}
+
+/* ===== UTILITIES ===== */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(37, 95, 163, 0.15), 0 4px 12px rgba(37, 95, 163, 0.08);
+}
+
+.dark .hover-lift:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(34, 169, 120, 0.12);
+}
+
+.section-padding {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.container-custom {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-fade-in { animation: fade-in 0.6s ease-out forwards; }
+.animate-fade-in-up { animation: fade-in-up 0.6s ease-out forwards; }
+.animate-scale-in { animation: scale-in 0.5s ease-out forwards; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-delay-200 { animation-delay: 200ms; }
+.animate-delay-300 { animation-delay: 300ms; }
+.animate-delay-400 { animation-delay: 400ms; }
+.animate-delay-500 { animation-delay: 500ms; }
