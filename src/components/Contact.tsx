@@ -13,14 +13,31 @@ export default function Contact() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Telegram bot yoki backend ga ulash
-    console.log("Form submitted:", formData);
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
-    setFormData({ name: "", phone: "", subject: "", message: "" });
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) throw new Error();
+
+      setSubmitted(true);
+      setFormData({ name: "", phone: "", subject: "", message: "" });
+      setTimeout(() => setSubmitted(false), 3000);
+    } catch {
+      setError("Xatolik yuz berdi. Iltimos qayta urinib ko'ring.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -98,13 +115,18 @@ export default function Contact() {
                   placeholder="Savollaringiz bo'lsa yozing..."
                 />
               </div>
+              {error && (
+                <p className="text-red-500 text-sm">{error}</p>
+              )}
               <button
                 type="submit"
-                disabled={submitted}
+                disabled={submitted || loading}
                 className="w-full py-4 rounded-xl gradient-bg text-white font-bold text-lg shadow-lg shadow-primary-500/25 hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
               >
                 {submitted ? (
                   "Yuborildi!"
+                ) : loading ? (
+                  "Yuborilmoqda..."
                 ) : (
                   <>
                     <Send className="w-5 h-5" />
