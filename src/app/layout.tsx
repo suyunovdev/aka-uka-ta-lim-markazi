@@ -27,6 +27,9 @@ export const metadata: Metadata = {
     "matematika",
     "ingliz tili",
   ],
+  verification: {
+    google: "6clwtvh8LpoRZXFzm-GjEQyZ7PGeiX9yC4DrV9oGepE",
+  },
   openGraph: {
     title: "Aka-Uka Ta'lim Markazi",
     description: "Kelajagingizni biz bilan quring",
