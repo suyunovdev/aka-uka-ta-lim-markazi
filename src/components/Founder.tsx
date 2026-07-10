@@ -8,7 +8,7 @@ export default function Founder() {
           <div className="relative mx-auto lg:mx-0 w-full max-w-md">
             <div className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-primary-200 dark:ring-primary-700/50">
               <Image
-                src="/images/founder.jpg"
+                src="/images/founder.webp"
                 alt="Rahmiddin Vafoxonov"
                 fill
                 className="object-cover"

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Send, Phone, MapPin } from "lucide-react";
-import { FaInstagram } from "react-icons/fa";
+import { Send, Phone, MapPin, Clock } from "lucide-react";
+import { FaInstagram, FaTelegram } from "react-icons/fa";
 import { siteConfig } from "@/lib/data";
 
 export default function Contact() {
@@ -169,6 +169,29 @@ export default function Contact() {
                     <p className="font-semibold text-primary-900 dark:text-white">{siteConfig.instagram}</p>
                   </div>
                 </a>
+                <a
+                  href={siteConfig.telegramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-4 rounded-xl bg-sky-50 dark:bg-sky-950/20 hover:bg-sky-100 dark:hover:bg-sky-900/20 transition-colors group"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-sky-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <FaTelegram className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">Telegram kanal</p>
+                    <p className="font-semibold text-primary-900 dark:text-white">{siteConfig.telegram}</p>
+                  </div>
+                </a>
+                <div className="flex items-center gap-4 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/20">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-800/40 flex items-center justify-center">
+                    <Clock className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">Ish vaqti</p>
+                    <p className="font-semibold text-primary-900 dark:text-white">{siteConfig.workingHours}</p>
+                  </div>
+                </div>
                 <div className="flex items-center gap-4 p-4 rounded-xl bg-secondary-50 dark:bg-secondary-900/20">
                   <div className="w-12 h-12 rounded-xl bg-secondary-100 dark:bg-secondary-800/40 flex items-center justify-center">
                     <MapPin className="w-6 h-6 text-secondary-600 dark:text-secondary-400" />

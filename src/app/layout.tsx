@@ -37,6 +37,27 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  name: "Aka-Uka Ta'lim Markazi",
+  url: "https://akaukalarmarkazi.uz",
+  description:
+    "Ishtixon tumani. O'rta maktab fanlari bo'yicha sertifikat imtihonlariga professional tayyorgarlik markazi. Tajribali ustozlar, individual yondashuv va yuqori natijalar.",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Ishtixon tumani",
+    addressCountry: "UZ",
+  },
+  telephone: "+998948040626",
+  sameAs: [
+    "https://instagram.com/akauka_markazi",
+    "https://t.me/Aka_ukalarmarkazi",
+    "https://youtu.be/IOwTEQQk5kU",
+  ],
+  openingHours: "Mo-Sa 08:00-20:00",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -49,6 +70,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-white dark:bg-primary-950 text-slate-800 dark:text-slate-100 transition-colors duration-300">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
       </body>
     </html>
