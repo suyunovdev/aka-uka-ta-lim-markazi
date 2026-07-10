@@ -9,7 +9,7 @@ export default function Founder() {
             <div className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-primary-200 dark:ring-primary-700/50">
               <Image
                 src="/images/founder.jpg"
-                alt="Rahmidin Vafaxonov"
+                alt="Rahmiddin Vafoxonov"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 400px, 450px"
@@ -24,21 +24,20 @@ export default function Founder() {
               Asoschi
             </span>
             <h2 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-900 dark:text-white mb-4">
-              Rahmidin Vafaxonov
+              Rahmiddin Vafoxonov
             </h2>
             <p className="text-lg text-secondary-600 dark:text-secondary-400 font-medium mb-6">
-              Aka-Uka o&apos;quv markazi va xususiy maktab asoschisi
+              &quot;Aka-ukalar&quot; o&apos;quv markazi va xususiy maktabi asoschisi
             </p>
             <div className="space-y-4 text-slate-600 dark:text-slate-300 leading-relaxed">
               <p>
-                Rahmidin Vafaxonov — ta&apos;lim sohasida ko&apos;p yillik tajribaga ega rahbar va tashkilotchi.
-                U Aka-Uka o&apos;quv markazi va xususiy maktabni asos solib, minglab o&apos;quvchilarga
-                sifatli ta&apos;lim olish imkoniyatini yaratdi.
+                Rahmiddin Vafoxonov — &quot;Aka-ukalar&quot; o&apos;quv markazi va xususiy maktabiga asos solgan
+                rahbar va tashkilotchi. Minglab o&apos;quvchilarga sifatli ta&apos;lim olish imkoniyatini yaratdi.
               </p>
               <p>
-                Uning rahbarligida markaz bugungi kunda 30 dan ortiq professional ustozlar jamoasi
-                bilan o&apos;quvchilarni milliy va xalqaro imtihonlarga tayyorlash bo&apos;yicha
-                yetakchi ta&apos;lim muassasalaridan biriga aylandi.
+                10 dan ortiq kitoblar muallifi. Uning rahbarligida markaz bugungi kunda 30 dan ortiq
+                professional ustozlar jamoasi bilan o&apos;quvchilarni milliy va xalqaro imtihonlarga
+                tayyorlash bo&apos;yicha yetakchi ta&apos;lim muassasalaridan biriga aylandi.
               </p>
             </div>
           </div>

@@ -274,6 +274,17 @@ export const certificates: CertificateResult[] = [
   { name: "Ruzimurodov Shohjahon", subject: "O'zbek tili va adabiyot", score: 47.05, percentage: 72.38, grade: "C", image: "/images/certificates/cert_183.jpg" },
 ];
 
+export const books = [
+  { title: "Ona tili: Mukammal tahlil va test", grade: "5-sinf", image: "/images/books/book_209.jpg" },
+  { title: "Ona tili: Mukammal tahlil va test", grade: "6-sinf", image: "/images/books/book_204.jpg" },
+  { title: "Ona tili: Mukammal tahlil va test", grade: "7-sinf", image: "/images/books/book_203.jpg" },
+  { title: "Ona tili: Mukammal tahlil va test", grade: "8-sinf", image: "/images/books/book_206.jpg" },
+  { title: "Ona tili: Mukammal tahlil va test", grade: "9-sinf", image: "/images/books/book_210.jpg" },
+  { title: "Adabiyot: Testlar to'plami", grade: "5-6-sinflar", image: "/images/books/book_205.jpg" },
+  { title: "Adabiyot: Testlar to'plami", grade: "9-10-11-sinflar", image: "/images/books/book_207.jpg" },
+  { title: "Adabiyot: Maxsus testlar", grade: "Badiiy asarlar bo'yicha", image: "/images/books/book_208.jpg" },
+];
+
 export const subjects = [
   { name: "Matematika", icon: "Calculator" },
   { name: "Fizika", icon: "Atom" },

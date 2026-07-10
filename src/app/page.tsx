@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Founder from "@/components/Founder";
+import Books from "@/components/Books";
 import Subjects from "@/components/Subjects";
 import Teachers from "@/components/Teachers";
 import Stats from "@/components/Stats";
@@ -20,6 +21,7 @@ export default function Home() {
         <Hero />
         <About />
         <Founder />
+        <Books />
         <Subjects />
         <Teachers />
         <Stats />
