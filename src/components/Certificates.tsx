@@ -120,6 +120,7 @@ export default function Certificates() {
                   src={cert.image}
                   alt={`${cert.name} sertifikati`}
                   fill
+                  loading="lazy"
                   className="object-contain p-2 group-hover:scale-105 transition-transform"
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 />
@@ -173,6 +174,7 @@ export default function Certificates() {
                   src={visible[selectedCert].image}
                   alt={`${visible[selectedCert].name} sertifikati`}
                   fill
+                  priority
                   className="object-contain"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
