@@ -34,18 +34,31 @@ export async function POST(req: NextRequest) {
       const operatorName = from.first_name + (from.last_name ? ` ${from.last_name}` : "");
       const now = new Date().toLocaleString("uz-UZ", { timeZone: "Asia/Tashkent" });
 
-      // Update original message with new status, keep buttons for re-update
       const originalText = message.text || "";
-      const updatedText = originalText
-        .replace(
-          /📌 \*?Holat:\*? .+(\n👷.+)?(\n⏱.+)?/,
-          `📌 *Holat:* ${statusText}\n👷 *Mas'ul:* ${operatorName}\n⏱ *Yangilangan:* ${now}`
-        );
+
+      // Remove old status/mas'ul/yangilangan lines, keep everything else
+      let cleanText = originalText
+        .replace(/\n📌 .*/, "")
+        .replace(/\n👷 .*/, "")
+        .replace(/\n⏱ .*/, "")
+        .replace(/\n_Izoh.*reply.*_/, "")
+        .trimEnd();
+
+      // Preserve existing comments
+      const commentMatch = originalText.match(/\n\n💬 Izohlar:.*/s);
+      const existingComments = commentMatch ? commentMatch[0] : "";
+
+      const updatedText = cleanText.replace(existingComments, "") +
+        `\n\n📌 *Holat:* ${statusText}` +
+        `\n👷 *Mas'ul:* ${operatorName}` +
+        `\n⏱ *Yangilangan:* ${now}` +
+        existingComments +
+        `\n\n_Izoh → shu xabarga reply qiling_`;
 
       await tgApi("editMessageText", {
         chat_id: message.chat.id,
         message_id: message.message_id,
-        text: updatedText + "\n\n_Izoh yozish uchun shu xabarga reply qiling_",
+        text: updatedText,
         parse_mode: "Markdown",
         reply_markup: {
           inline_keyboard: [
@@ -61,30 +74,61 @@ export async function POST(req: NextRequest) {
         },
       });
 
-      // Answer callback
       await tgApi("answerCallbackQuery", {
         callback_query_id: callback.id,
-        text: `${statusText} — izoh uchun reply qiling`,
+        text: statusText,
       });
 
       return NextResponse.json({ ok: true });
     }
 
-    // Handle reply to bot message (comment on lead)
+    // Handle reply to bot message → add comment to original lead message
     const msg = body.message;
     if (msg?.reply_to_message?.from?.is_bot && msg.text) {
       const repliedText = msg.reply_to_message.text || "";
 
-      // Check if replied to a lead message
-      if (repliedText.includes("Yangi lid saytdan") || repliedText.includes("Holat:")) {
-        const commentAuthor = msg.from.first_name + (msg.from.last_name ? ` ${msg.from.last_name}` : "");
+      if (repliedText.includes("Yangi lid") || repliedText.includes("Holat:")) {
+        const author = msg.from.first_name + (msg.from.last_name ? ` ${msg.from.last_name}` : "");
         const now = new Date().toLocaleString("uz-UZ", { timeZone: "Asia/Tashkent" });
+        const newComment = `\n• ${author}: ${msg.text} _(${now})_`;
 
-        await tgApi("sendMessage", {
+        let updatedText: string;
+
+        if (repliedText.includes("💬 Izohlar:")) {
+          // Append to existing comments section (before the hint line)
+          updatedText = repliedText
+            .replace(/\n\n_Izoh.*reply.*_/, "")
+            .trimEnd() + newComment + `\n\n_Izoh → shu xabarga reply qiling_`;
+        } else {
+          // Add new comments section (before the hint line)
+          updatedText = repliedText
+            .replace(/\n\n_Izoh.*reply.*_/, "")
+            .trimEnd() + `\n\n💬 Izohlar:${newComment}` + `\n\n_Izoh → shu xabarga reply qiling_`;
+        }
+
+        await tgApi("editMessageText", {
           chat_id: msg.chat.id,
-          text: `💬 *Izoh* — ${commentAuthor}:\n${msg.text}\n\n_${now}_`,
+          message_id: msg.reply_to_message.message_id,
+          text: updatedText,
           parse_mode: "Markdown",
-          reply_to_message_id: msg.reply_to_message.message_id,
+          reply_markup: {
+            inline_keyboard: [
+              [
+                { text: "📞 Qo'ng'iroq qilindi", callback_data: "status_called" },
+                { text: "✅ Yozildi", callback_data: "status_enrolled" },
+              ],
+              [
+                { text: "🔄 Keyinroq", callback_data: "status_later" },
+                { text: "❌ Rad etdi", callback_data: "status_rejected" },
+              ],
+            ],
+          },
+        });
+
+        // Delete user's reply to keep chat clean
+        await tgApi("deleteMessage", {
+          chat_id: msg.chat.id,
+          message_id: msg.message_id,
         });
       }
 
