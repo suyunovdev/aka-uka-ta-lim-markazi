@@ -34,66 +34,57 @@ export async function POST(req: NextRequest) {
       const operatorName = from.first_name + (from.last_name ? ` ${from.last_name}` : "");
       const now = new Date().toLocaleString("uz-UZ", { timeZone: "Asia/Tashkent" });
 
-      // Update original message with new status
+      // Update original message with new status, keep buttons for re-update
       const originalText = message.text || "";
-      const updatedText = originalText.replace(
-        /📌 \*?Holat:\*? .+/,
-        `📌 *Holat:* ${statusText}\n👷 *Mas'ul:* ${operatorName}\n⏱ *Yangilangan:* ${now}`
-      );
+      const updatedText = originalText
+        .replace(
+          /📌 \*?Holat:\*? .+(\n👷.+)?(\n⏱.+)?/,
+          `📌 *Holat:* ${statusText}\n👷 *Mas'ul:* ${operatorName}\n⏱ *Yangilangan:* ${now}`
+        );
 
       await tgApi("editMessageText", {
         chat_id: message.chat.id,
         message_id: message.message_id,
-        text: updatedText,
+        text: updatedText + "\n\n_Izoh yozish uchun shu xabarga reply qiling_",
         parse_mode: "Markdown",
-      });
-
-      // Ask for comment with force reply
-      await tgApi("sendMessage", {
-        chat_id: message.chat.id,
-        text: `💬 *${operatorName}*, izoh yozing:\n_(${statusText})_\n\n🆔 Lid: #lid\\_${message.message_id}`,
-        parse_mode: "Markdown",
-        reply_to_message_id: message.message_id,
         reply_markup: {
-          force_reply: true,
-          selective: true,
-          input_field_placeholder: "Izoh yozing...",
+          inline_keyboard: [
+            [
+              { text: "📞 Qo'ng'iroq qilindi", callback_data: "status_called" },
+              { text: "✅ Yozildi", callback_data: "status_enrolled" },
+            ],
+            [
+              { text: "🔄 Keyinroq", callback_data: "status_later" },
+              { text: "❌ Rad etdi", callback_data: "status_rejected" },
+            ],
+          ],
         },
       });
 
       // Answer callback
       await tgApi("answerCallbackQuery", {
         callback_query_id: callback.id,
-        text: `${statusText} — izoh yozing!`,
+        text: `${statusText} — izoh uchun reply qiling`,
       });
 
       return NextResponse.json({ ok: true });
     }
 
-    // Handle reply message (comment)
+    // Handle reply to bot message (comment on lead)
     const msg = body.message;
-    if (msg?.reply_to_message?.from?.is_bot && msg.reply_to_message.text?.includes("#lid_")) {
-      const botReplyText = msg.reply_to_message.text || "";
-      const lidIdMatch = botReplyText.match(/#lid_(\d+)/);
+    if (msg?.reply_to_message?.from?.is_bot && msg.text) {
+      const repliedText = msg.reply_to_message.text || "";
 
-      if (lidIdMatch) {
-        const lidMessageId = parseInt(lidIdMatch[1]);
+      // Check if replied to a lead message
+      if (repliedText.includes("Yangi lid saytdan") || repliedText.includes("Holat:")) {
         const commentAuthor = msg.from.first_name + (msg.from.last_name ? ` ${msg.from.last_name}` : "");
-        const comment = msg.text || "";
         const now = new Date().toLocaleString("uz-UZ", { timeZone: "Asia/Tashkent" });
 
-        // Send comment as reply to original lid message
         await tgApi("sendMessage", {
           chat_id: msg.chat.id,
-          text: `💬 *Izoh* — ${commentAuthor}:\n${comment}\n\n_${now}_`,
+          text: `💬 *Izoh* — ${commentAuthor}:\n${msg.text}\n\n_${now}_`,
           parse_mode: "Markdown",
-          reply_to_message_id: lidMessageId,
-        });
-
-        // Delete the bot's "izoh yozing" prompt
-        await tgApi("deleteMessage", {
-          chat_id: msg.chat.id,
-          message_id: msg.reply_to_message.message_id,
+          reply_to_message_id: msg.reply_to_message.message_id,
         });
       }
 
