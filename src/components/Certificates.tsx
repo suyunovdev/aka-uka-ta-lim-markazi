@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback, useRef } from "react";
 import Image from "next/image";
-import { Award, X } from "lucide-react";
+import { Award, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { certificates, certSubjectFilters, subjectFilterMap, type CertSubjectFilter } from "@/lib/data";
 
 const gradeColors: Record<string, string> = {
@@ -22,15 +22,17 @@ const ITEMS_PER_PAGE = 12;
 export default function Certificates() {
   const [activeFilter, setActiveFilter] = useState<CertSubjectFilter>("all");
   const [selectedCert, setSelectedCert] = useState<number | null>(null);
-  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+  const [currentPage, setCurrentPage] = useState(1);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const filtered =
     activeFilter === "all"
       ? certificates
       : certificates.filter((c) => subjectFilterMap[activeFilter].includes(c.subject));
 
-  const visible = filtered.slice(0, visibleCount);
-  const hasMore = visibleCount < filtered.length;
+  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const visible = filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const counts: Record<CertSubjectFilter, number> = {
     all: certificates.length,
@@ -42,14 +44,40 @@ export default function Certificates() {
     russian: certificates.filter((c) => c.subject === "Rus tili va adabiyot").length,
   };
 
+  const scrollToSection = useCallback(() => {
+    sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
+
+  const goToPage = useCallback((page: number) => {
+    setCurrentPage(page);
+    setSelectedCert(null);
+    scrollToSection();
+  }, [scrollToSection]);
+
   const handleFilterChange = (key: CertSubjectFilter) => {
     setActiveFilter(key);
-    setVisibleCount(ITEMS_PER_PAGE);
+    setCurrentPage(1);
     setSelectedCert(null);
   };
 
+  const getPageNumbers = () => {
+    const pages: (number | "...")[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      if (currentPage > 3) pages.push("...");
+      for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+        pages.push(i);
+      }
+      if (currentPage < totalPages - 2) pages.push("...");
+      pages.push(totalPages);
+    }
+    return pages;
+  };
+
   return (
-    <section id="results" className="section-padding section-alt">
+    <section id="results" className="section-padding section-alt" ref={sectionRef}>
       <div className="container-custom">
         <div className="text-center mb-12">
           <span className="inline-block px-4 py-2 rounded-full bg-accent-100 dark:bg-accent-800/30 text-accent-700 dark:text-accent-300 text-sm font-medium mb-4 border border-accent-200 dark:border-accent-700/50">
@@ -111,7 +139,7 @@ export default function Certificates() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {visible.map((cert, index) => (
             <div
-              key={index}
+              key={`${currentPage}-${index}`}
               className="glass-card p-5 hover-lift group cursor-pointer"
               onClick={() => setSelectedCert(index)}
             >
@@ -144,15 +172,50 @@ export default function Certificates() {
           ))}
         </div>
 
-        {/* Show More Button */}
-        {hasMore && (
-          <div className="text-center mt-8">
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-2 mt-10">
             <button
-              onClick={() => setVisibleCount((prev) => prev + ITEMS_PER_PAGE)}
-              className="px-8 py-3 rounded-xl bg-white dark:bg-primary-900/40 text-primary-700 dark:text-slate-300 font-medium border border-primary-200 dark:border-primary-700/50 hover:bg-primary-50 dark:hover:bg-primary-800/40 transition-all cursor-pointer"
+              onClick={() => goToPage(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="p-2.5 rounded-xl bg-white dark:bg-primary-900/40 border border-primary-200 dark:border-primary-700/50 text-primary-700 dark:text-slate-300 hover:bg-primary-50 dark:hover:bg-primary-800/40 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              Ko&apos;proq ko&apos;rsatish ({filtered.length - visibleCount} ta qoldi)
+              <ChevronLeft className="w-5 h-5" />
             </button>
+
+            <div className="flex items-center gap-1">
+              {getPageNumbers().map((page, i) =>
+                page === "..." ? (
+                  <span key={`dots-${i}`} className="px-2 text-slate-400 dark:text-slate-500">
+                    ...
+                  </span>
+                ) : (
+                  <button
+                    key={page}
+                    onClick={() => goToPage(page)}
+                    className={`min-w-[40px] h-10 rounded-xl font-medium text-sm transition-all cursor-pointer ${
+                      currentPage === page
+                        ? "gradient-bg text-white shadow-lg shadow-primary-500/20"
+                        : "bg-white dark:bg-primary-900/40 text-primary-700 dark:text-slate-300 hover:bg-primary-50 dark:hover:bg-primary-800/40 border border-primary-200 dark:border-primary-700/50"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                )
+              )}
+            </div>
+
+            <button
+              onClick={() => goToPage(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="p-2.5 rounded-xl bg-white dark:bg-primary-900/40 border border-primary-200 dark:border-primary-700/50 text-primary-700 dark:text-slate-300 hover:bg-primary-50 dark:hover:bg-primary-800/40 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+
+            <span className="ml-3 text-sm text-slate-500 dark:text-slate-400 hidden sm:inline">
+              {startIndex + 1}–{Math.min(startIndex + ITEMS_PER_PAGE, filtered.length)} / {filtered.length}
+            </span>
           </div>
         )}
 
