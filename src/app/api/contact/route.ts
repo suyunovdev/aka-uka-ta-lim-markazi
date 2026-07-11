@@ -3,6 +3,18 @@ import { NextRequest, NextResponse } from "next/server";
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
+const subjectLabels: Record<string, string> = {
+  math: "Matematika",
+  physics: "Fizika",
+  chemistry: "Kimyo",
+  biology: "Biologiya",
+  uzbek: "Ona tili va adabiyot",
+  english: "Ingliz tili",
+  russian: "Rus tili",
+  sat: "SAT",
+  other: "Boshqa fan",
+};
+
 export async function POST(req: NextRequest) {
   try {
     const { name, phone, subject, message } = await req.json();
@@ -11,15 +23,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Ism va telefon kerak" }, { status: 400 });
     }
 
+    const subjectText = subjectLabels[subject] || subject || "";
+
     const text = [
       "📋 *Yangi lid saytdan!*",
       "",
       `👤 *Ism:* ${name}`,
       `📞 *Telefon:* ${phone}`,
-      subject ? `📚 *Fan:* ${subject}` : "",
+      subjectText ? `📚 *Fan:* ${subjectText}` : "",
       message ? `💬 *Xabar:* ${message}` : "",
       "",
       `🕐 *Vaqt:* ${new Date().toLocaleString("uz-UZ", { timeZone: "Asia/Tashkent" })}`,
+      "",
+      "📌 *Holat:* 🆕 Yangi",
     ]
       .filter(Boolean)
       .join("\n");
@@ -33,6 +49,18 @@ export async function POST(req: NextRequest) {
           chat_id: CHAT_ID,
           text,
           parse_mode: "Markdown",
+          reply_markup: {
+            inline_keyboard: [
+              [
+                { text: "📞 Qo'ng'iroq qilindi", callback_data: "status_called" },
+                { text: "✅ Yozildi", callback_data: "status_enrolled" },
+              ],
+              [
+                { text: "🔄 Keyinroq", callback_data: "status_later" },
+                { text: "❌ Rad etdi", callback_data: "status_rejected" },
+              ],
+            ],
+          },
         }),
       }
     );
