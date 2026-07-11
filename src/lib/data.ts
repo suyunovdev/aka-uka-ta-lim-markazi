@@ -72,8 +72,8 @@ export const subjectFilterMap: Record<CertSubjectFilter, string[]> = {
 
 export const certificates: CertificateResult[] = [
   // ======== MATEMATIKA (12) ========
-  { name: "Rahmatov Zoir", subject: "Matematika (O'zbek)", score: 76.75, percentage: 100, grade: "A+", image: "/images/certificates/cert_007.webp" },
-  { name: "Aktamov Shohruhxon", subject: "Matematika (O'zbek)", score: 67.12, percentage: 100, grade: "A", image: "/images/certificates/cert_005.webp" },
+  { name: "Rahmatov Zoir", subject: "Matematika (O'zbek)", score: 76.75, percentage: 100, grade: "A+", image: "/images/certificates/cert_008.webp" },
+  { name: "Aktamov Shohruhxon", subject: "Matematika (O'zbek)", score: 67.12, percentage: 100, grade: "A", image: "/images/certificates/cert_006.webp" },
   { name: "Saydullayev Muhammadali", subject: "Matematika (O'zbek)", score: 66.03, percentage: 100, grade: "A", image: "/images/certificates/cert_012.webp" },
   { name: "Quvondiqov Bahodir", subject: "Matematika (O'zbek)", score: 65.53, percentage: 100, grade: "A", image: "/images/certificates/cert_010.webp" },
   { name: "Do'stmurodov Muhammad", subject: "Matematika (O'zbek)", score: 63.05, percentage: 97, grade: "B+", image: "/images/certificates/cert_013.webp" },
@@ -82,7 +82,7 @@ export const certificates: CertificateResult[] = [
   { name: "Mansurov Ixtiyorjon", subject: "Matematika (O'zbek)", score: 61.35, percentage: 94.38, grade: "B+", image: "/images/certificates/cert_014.webp" },
   { name: "Kamolova Umida", subject: "Matematika (O'zbek)", score: 59.89, percentage: 92.14, grade: "B", image: "/images/certificates/cert_016.webp" },
   { name: "Xayrullayev Jamshid", subject: "Matematika (O'zbek)", score: 57.18, percentage: 87.97, grade: "B", image: "/images/certificates/cert_009.webp" },
-  { name: "Saidalimov Asliddin", subject: "Matematika (O'zbek)", score: 56.09, percentage: 86.29, grade: "B", image: "/images/certificates/cert_006.webp" },
+  { name: "Saidalimov Asliddin", subject: "Matematika (O'zbek)", score: 56.09, percentage: 86.29, grade: "B", image: "/images/certificates/cert_007.webp" },
   { name: "Abdurahmonova Aziza", subject: "Matematika (O'zbek)", score: 55.49, percentage: 85.37, grade: "B", image: "/images/certificates/cert_011.webp" },
 
   // ======== KIMYO (13) ========
