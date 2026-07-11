@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
         .trimEnd();
 
       // Preserve existing comments
-      const commentMatch = originalText.match(/\n\n💬 Izohlar:.*/s);
+      const commentMatch = originalText.match(/\n\n💬 Izohlar:[\s\S]*/);
       const existingComments = commentMatch ? commentMatch[0] : "";
 
       const updatedText = cleanText.replace(existingComments, "") +
