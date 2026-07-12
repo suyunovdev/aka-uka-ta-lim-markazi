@@ -5,6 +5,12 @@ import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { certificates } from "@/lib/data";
 
+const gradeOrder: Record<string, number> = { "A+": 0, A: 1, "B+": 2, B: 3 };
+
+const sorted = [...certificates].sort(
+  (a, b) => (gradeOrder[a.grade] ?? 9) - (gradeOrder[b.grade] ?? 9) || b.score - a.score
+);
+
 const gradeColors: Record<string, string> = {
   "A+": "bg-yellow-100 text-yellow-800 dark:bg-yellow-800/40 dark:text-yellow-300",
   A: "bg-accent-100 text-accent-700 dark:bg-accent-800/40 dark:text-accent-300",
@@ -18,9 +24,9 @@ export default function Certificates() {
   const [currentPage, setCurrentPage] = useState(1);
   const sectionRef = useRef<HTMLElement>(null);
 
-  const totalPages = Math.ceil(certificates.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(sorted.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const visible = certificates.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const visible = sorted.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const scrollToSection = useCallback(() => {
     sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -142,7 +148,7 @@ export default function Certificates() {
             </button>
 
             <span className="ml-3 text-sm text-slate-500 dark:text-slate-400 hidden sm:inline">
-              {startIndex + 1}–{Math.min(startIndex + ITEMS_PER_PAGE, certificates.length)} / {certificates.length}
+              {startIndex + 1}–{Math.min(startIndex + ITEMS_PER_PAGE, sorted.length)} / {sorted.length}
             </span>
           </div>
         )}
