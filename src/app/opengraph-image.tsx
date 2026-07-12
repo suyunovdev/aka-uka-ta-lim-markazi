@@ -52,7 +52,7 @@ export default function Image() {
               marginBottom: "24px",
             }}
           >
-            Ta&apos;lim Markazi
+            {"Ta'lim Markazi"}
           </div>
           <div
             style={{

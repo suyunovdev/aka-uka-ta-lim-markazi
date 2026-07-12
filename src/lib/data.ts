@@ -39,8 +39,6 @@ export const teachers: Teacher[] = [
   { name: "Yusupova Dilobar", subject: "Matematika", image: "/images/teachers/yusupova_dilobar.webp" },
 ];
 
-export type CertSubjectFilter = "all" | "uzbek" | "math" | "chemistry" | "russian";
-
 export interface CertificateResult {
   name: string;
   subject: string;
@@ -50,21 +48,6 @@ export interface CertificateResult {
   image: string;
 }
 
-export const certSubjectFilters: { key: CertSubjectFilter; label: string }[] = [
-  { key: "all", label: "Barchasi" },
-  { key: "uzbek", label: "O'zbek tili" },
-  { key: "math", label: "Matematika" },
-  { key: "chemistry", label: "Kimyo" },
-  { key: "russian", label: "Rus tili" },
-];
-
-export const subjectFilterMap: Record<CertSubjectFilter, string[]> = {
-  all: [],
-  uzbek: ["O'zbek tili va adabiyot"],
-  math: ["Matematika (O'zbek)"],
-  chemistry: ["Kimyo (O'zbek)"],
-  russian: ["Rus tili va adabiyot"],
-};
 
 export const certificates: CertificateResult[] = [
   // ======== MATEMATIKA (6) ========
