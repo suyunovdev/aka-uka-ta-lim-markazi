@@ -41,6 +41,9 @@ export const metadata: Metadata = {
     "rus tili kurslari",
     "fizika kurslari",
     "biologiya kurslari",
+    "IT kurslari",
+    "dasturlash kurslari",
+    "axborot texnologiyalari kurslari",
     // CEFR va sertifikatlar
     "CEFR imtihon",
     "CEFR B2",
@@ -196,6 +199,12 @@ const organizationSchema = {
         "@type": "Course",
         name: "Rus tili va adabiyot kursi",
         description: "Rus tili sertifikat imtihoniga tayyorgarlik",
+        provider: { "@id": "https://akaukalarmarkazi.uz/#organization" },
+      },
+      {
+        "@type": "Course",
+        name: "IT kursi",
+        description: "Axborot texnologiyalari va dasturlash asoslari",
         provider: { "@id": "https://akaukalarmarkazi.uz/#organization" },
       },
     ],

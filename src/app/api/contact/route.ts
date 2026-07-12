@@ -11,6 +11,8 @@ const subjectLabels: Record<string, string> = {
   uzbek: "Ona tili va adabiyot",
   english: "Ingliz tili",
   russian: "Rus tili",
+  turkish: "Turk tili",
+  it: "IT (Axborot texnologiyalari)",
   sat: "SAT",
   other: "Boshqa fan",
 };

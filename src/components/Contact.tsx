@@ -1,25 +1,55 @@
 "use client";
 
 import { useState } from "react";
-import { Send, Phone, MapPin, Clock } from "lucide-react";
+import { Send, Phone, MapPin, Clock, CheckCircle, X } from "lucide-react";
 import { FaInstagram, FaTelegram } from "react-icons/fa";
 import { siteConfig } from "@/lib/data";
+
+function formatPhone(value: string): string {
+  const digits = value.replace(/\D/g, "");
+  const d = digits.startsWith("998") ? digits.slice(3) : digits;
+  if (d.length === 0) return "+998 ";
+  if (d.length <= 2) return `+998 (${d}`;
+  if (d.length <= 5) return `+998 (${d.slice(0, 2)}) ${d.slice(2)}`;
+  if (d.length <= 7) return `+998 (${d.slice(0, 2)}) ${d.slice(2, 5)}-${d.slice(5)}`;
+  return `+998 (${d.slice(0, 2)}) ${d.slice(2, 5)}-${d.slice(5, 7)}-${d.slice(7, 9)}`;
+}
+
+function isValidPhone(phone: string): boolean {
+  const digits = phone.replace(/\D/g, "");
+  return digits.length === 12 && digits.startsWith("998");
+}
 
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
-    phone: "",
+    phone: "+998 ",
     subject: "",
     message: "",
   });
-  const [submitted, setSubmitted] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value;
+    if (raw.length < 5) return;
+    const formatted = formatPhone(raw);
+    if (formatted.replace(/\D/g, "").length <= 12) {
+      setFormData({ ...formData, phone: formatted });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
+
+    if (!isValidPhone(formData.phone)) {
+      setError("Telefon raqamni to'liq kiriting: +998 (__) ___-__-__");
+      return;
+    }
+
+    setLoading(true);
 
     try {
       const res = await fetch("/api/contact", {
@@ -30,9 +60,8 @@ export default function Contact() {
 
       if (!res.ok) throw new Error();
 
-      setSubmitted(true);
-      setFormData({ name: "", phone: "", subject: "", message: "" });
-      setTimeout(() => setSubmitted(false), 3000);
+      setShowModal(true);
+      setFormData({ name: "", phone: "+998 ", subject: "", message: "" });
     } catch {
       setError("Xatolik yuz berdi. Iltimos qayta urinib ko'ring.");
     } finally {
@@ -49,7 +78,7 @@ export default function Contact() {
               Bog&apos;lanish
             </span>
             <h2 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-bold text-primary-900 dark:text-white mb-6">
-              Bepul konsultatsiya oling
+              Biz bilan bog&apos;laning
             </h2>
             <p className="text-slate-600 dark:text-slate-300 mb-8">
               Formani to&apos;ldiring va biz sizga 24 soat ichida bog&apos;lanamiz.
@@ -77,14 +106,14 @@ export default function Contact() {
                   type="tel"
                   required
                   value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  onChange={handlePhoneChange}
                   className="w-full px-4 py-3 rounded-xl bg-white dark:bg-primary-900/40 border border-primary-200 dark:border-primary-700/50 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all outline-none text-slate-800 dark:text-white placeholder:text-slate-400"
-                  placeholder="+998 __ ___ __ __"
+                  placeholder="+998 (__) ___-__-__"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-primary-800 dark:text-slate-300 mb-2">
-                  Qaysi fan qiziqtiradi?
+                  Qaysi fan/kurs qiziqtiradi?
                 </label>
                 <select
                   value={formData.subject}
@@ -99,6 +128,8 @@ export default function Contact() {
                   <option value="uzbek">Ona tili va adabiyot</option>
                   <option value="english">Ingliz tili</option>
                   <option value="russian">Rus tili</option>
+                  <option value="turkish">Turk tili</option>
+                  <option value="it">IT (Axborot texnologiyalari)</option>
                   <option value="sat">SAT</option>
                   <option value="other">Boshqa fan</option>
                 </select>
@@ -120,12 +151,10 @@ export default function Contact() {
               )}
               <button
                 type="submit"
-                disabled={submitted || loading}
+                disabled={loading}
                 className="w-full py-4 rounded-xl gradient-bg text-white font-bold text-lg shadow-lg shadow-primary-500/25 hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
               >
-                {submitted ? (
-                  "Yuborildi!"
-                ) : loading ? (
+                {loading ? (
                   "Yuborilmoqda..."
                 ) : (
                   <>
@@ -206,6 +235,41 @@ export default function Contact() {
           </div>
         </div>
       </div>
+
+      {/* Muvaffaqiyat Modal */}
+      {showModal && (
+        <div
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setShowModal(false)}
+        >
+          <div
+            className="relative bg-white dark:bg-primary-900 rounded-2xl shadow-2xl max-w-md w-full p-8 text-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-primary-800/40 transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <div className="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-800/30 flex items-center justify-center mx-auto mb-5">
+              <CheckCircle className="w-9 h-9 text-emerald-500" />
+            </div>
+            <h3 className="text-2xl font-bold text-primary-900 dark:text-white mb-3">
+              Muvaffaqiyatli yuborildi!
+            </h3>
+            <p className="text-slate-600 dark:text-slate-300 mb-6">
+              Murojaatingiz qabul qilindi. Biz sizga 24 soat ichida bog&apos;lanamiz.
+            </p>
+            <button
+              onClick={() => setShowModal(false)}
+              className="px-8 py-3 rounded-xl gradient-bg text-white font-bold text-lg shadow-lg shadow-primary-500/25 hover:shadow-xl transition-all cursor-pointer"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

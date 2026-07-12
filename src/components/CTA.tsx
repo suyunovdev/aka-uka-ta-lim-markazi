@@ -23,7 +23,7 @@ export default function CTA() {
               href="#contact"
               className="px-10 py-5 rounded-2xl bg-white text-primary-600 font-bold text-lg shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1 flex items-center justify-center gap-2 group"
             >
-              Bepul konsultatsiya
+              Murojaat qilish
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
