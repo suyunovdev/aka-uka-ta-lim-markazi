@@ -15,7 +15,11 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Aka-Uka Ta'lim Markazi | Sertifikat imtihonlariga tayyorgarlik",
+  metadataBase: new URL("https://akaukalarmarkazi.uz"),
+  title: {
+    default: "Aka-Uka Ta'lim Markazi | Sertifikat imtihonlariga tayyorgarlik",
+    template: "%s | Aka-Uka Ta'lim Markazi",
+  },
   description:
     "Ishtixon tumani. O'rta maktab fanlari bo'yicha sertifikat imtihonlariga professional tayyorgarlik markazi. Tajribali ustozlar, individual yondashuv va yuqori natijalar.",
   keywords: [
@@ -26,14 +30,46 @@ export const metadata: Metadata = {
     "o'zbek tili",
     "matematika",
     "ingliz tili",
+    "turk tili",
+    "CEFR",
+    "Samarqand",
+    "repetitor",
+    "o'quv markaz",
   ],
+  authors: [{ name: "Aka-Uka Ta'lim Markazi" }],
+  creator: "Aka-Uka Ta'lim Markazi",
+  publisher: "Aka-Uka Ta'lim Markazi",
   verification: {
     google: "6clwtvh8LpoRZXFzm-GjEQyZ7PGeiX9yC4DrV9oGepE",
   },
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Aka-Uka Ta'lim Markazi",
-    description: "Kelajagingizni biz bilan quring",
+    description:
+      "Ishtixon tumani. Sertifikat imtihonlariga professional tayyorgarlik. Tajribali ustozlar, individual yondashuv va yuqori natijalar.",
+    url: "https://akaukalarmarkazi.uz",
+    siteName: "Aka-Uka Ta'lim Markazi",
+    locale: "uz_UZ",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Aka-Uka Ta'lim Markazi",
+    description:
+      "Ishtixon tumani. Sertifikat imtihonlariga professional tayyorgarlik markazi.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 

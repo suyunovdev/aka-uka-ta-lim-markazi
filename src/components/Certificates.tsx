@@ -39,8 +39,6 @@ export default function Certificates() {
     uzbek: certificates.filter((c) => c.subject === "O'zbek tili va adabiyot").length,
     math: certificates.filter((c) => c.subject === "Matematika (O'zbek)").length,
     chemistry: certificates.filter((c) => c.subject === "Kimyo (O'zbek)").length,
-    english: certificates.filter((c) => c.subject === "Ingliz tili").length,
-    turkish: certificates.filter((c) => c.subject === "Turk tili").length,
     russian: certificates.filter((c) => c.subject === "Rus tili va adabiyot").length,
   };
 
@@ -92,13 +90,11 @@ export default function Certificates() {
         </div>
 
         {/* Summary Stats */}
-        <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 mb-10 max-w-3xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10 max-w-2xl mx-auto">
           {[
-            { label: "Matematika", count: counts.math, color: "bg-primary-100 dark:bg-primary-800/30 text-primary-600 dark:text-primary-400" },
-            { label: "Kimyo", count: counts.chemistry, color: "bg-secondary-100 dark:bg-secondary-800/30 text-secondary-600 dark:text-secondary-400" },
-            { label: "Ingliz tili", count: counts.english, color: "bg-indigo-100 dark:bg-indigo-800/30 text-indigo-600 dark:text-indigo-400" },
-            { label: "Turk tili", count: counts.turkish, color: "bg-teal-100 dark:bg-teal-800/30 text-teal-600 dark:text-teal-400" },
             { label: "O'zbek tili", count: counts.uzbek, color: "bg-accent-100 dark:bg-accent-800/30 text-accent-600 dark:text-accent-400" },
+            { label: "Kimyo", count: counts.chemistry, color: "bg-secondary-100 dark:bg-secondary-800/30 text-secondary-600 dark:text-secondary-400" },
+            { label: "Matematika", count: counts.math, color: "bg-primary-100 dark:bg-primary-800/30 text-primary-600 dark:text-primary-400" },
             { label: "Rus tili", count: counts.russian, color: "bg-purple-100 dark:bg-purple-800/30 text-purple-600 dark:text-purple-400" },
           ].map((stat) => (
             <div key={stat.label} className="glass-card p-3 text-center">
