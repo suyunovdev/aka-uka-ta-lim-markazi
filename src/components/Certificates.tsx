@@ -1,9 +1,13 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { certificates } from "@/lib/data";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const gradeOrder: Record<string, number> = { "A+": 0, A: 1, "B+": 2, B: 3 };
 
@@ -38,6 +42,30 @@ export default function Certificates() {
     scrollToSection();
   }, [scrollToSection]);
 
+  const gridRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const heading = headingRef.current;
+    if (heading) {
+      gsap.fromTo(heading, { y: 50, opacity: 0 }, {
+        y: 0, opacity: 1, duration: 0.8, ease: "power3.out",
+        scrollTrigger: { trigger: heading, start: "top 85%", toggleActions: "play none none none" },
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    const cards = grid.children;
+    gsap.fromTo(cards,
+      { y: 30, opacity: 0, scale: 0.95 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.1, ease: "power3.out" }
+    );
+  }, [currentPage]);
+
   const getPageNumbers = () => {
     const pages: (number | "...")[] = [];
     if (totalPages <= 7) {
@@ -57,7 +85,7 @@ export default function Certificates() {
   return (
     <section id="results" className="section-padding section-alt" ref={sectionRef}>
       <div className="container-custom">
-        <div className="text-center mb-12">
+        <div ref={headingRef} className="text-center mb-12">
           <span className="inline-block px-4 py-2 rounded-full bg-accent-100 dark:bg-accent-800/30 text-accent-700 dark:text-accent-300 text-sm font-medium mb-4 border border-accent-200 dark:border-accent-700/50">
             Natijalar va Sertifikatlar
           </span>
@@ -70,7 +98,7 @@ export default function Certificates() {
         </div>
 
         {/* Results Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+        <div ref={gridRef} className="grid grid-cols-2 lg:grid-cols-4 gap-5">
           {visible.map((cert, index) => (
             <div
               key={`${currentPage}-${index}`}

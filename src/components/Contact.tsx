@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Send, Phone, MapPin, Clock, CheckCircle, X } from "lucide-react";
 import { FaInstagram, FaTelegram } from "react-icons/fa";
 import { siteConfig } from "@/lib/data";
+import { useScrollReveal } from "@/hooks/useAnimations";
 
 function formatPhone(value: string): string {
   const digits = value.replace(/\D/g, "");
@@ -30,6 +31,8 @@ export default function Contact() {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const formRef = useScrollReveal<HTMLDivElement>({ x: -50, y: 0 });
+  const infoRef = useScrollReveal<HTMLDivElement>({ x: 50, y: 0, delay: 0.2 });
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value;
@@ -73,7 +76,7 @@ export default function Contact() {
     <section id="contact" className="section-padding section-alt">
       <div className="container-custom">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <div>
+          <div ref={formRef}>
             <span className="inline-block px-4 py-2 rounded-full bg-primary-100 dark:bg-primary-800/40 text-primary-700 dark:text-primary-300 text-sm font-medium mb-4 border border-primary-200 dark:border-primary-700/50">
               Bog&apos;lanish
             </span>
@@ -166,7 +169,7 @@ export default function Contact() {
             </form>
           </div>
 
-          <div className="space-y-6">
+          <div ref={infoRef} className="space-y-6">
             <div className="glass-card p-6">
               <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-primary-900 dark:text-white mb-6">
                 Aloqa ma&apos;lumotlari

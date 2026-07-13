@@ -1,11 +1,17 @@
+"use client";
+
 import Image from "next/image";
+import { useScrollReveal } from "@/hooks/useAnimations";
 
 export default function Founder() {
+  const imageRef = useScrollReveal<HTMLDivElement>({ x: -60, y: 0 });
+  const textRef = useScrollReveal<HTMLDivElement>({ x: 60, y: 0, delay: 0.2 });
+
   return (
     <section className="section-padding">
       <div className="container-custom">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div className="relative mx-auto lg:mx-0 w-full max-w-md">
+          <div ref={imageRef} className="relative mx-auto lg:mx-0 w-full max-w-md">
             <div className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-primary-200 dark:ring-primary-700/50">
               <Image
                 src="/images/founder.webp"
@@ -19,7 +25,7 @@ export default function Founder() {
             <div className="absolute -top-4 -left-4 w-32 h-32 bg-secondary-500/10 dark:bg-secondary-400/10 rounded-full blur-2xl" />
           </div>
 
-          <div>
+          <div ref={textRef}>
             <span className="inline-block px-4 py-2 rounded-full bg-secondary-100 dark:bg-secondary-800/40 text-secondary-700 dark:text-secondary-300 text-sm font-medium mb-4 border border-secondary-200 dark:border-secondary-700/50">
               Asoschi
             </span>

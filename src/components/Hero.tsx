@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Award,
   BookOpen,
@@ -9,56 +11,57 @@ import {
   Star,
   ChevronDown,
 } from "lucide-react";
+import { useHeroAnimation } from "@/hooks/useAnimations";
 
 export default function Hero() {
+  const sectionRef = useHeroAnimation<HTMLElement>();
+
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Light: brand-tinted gradient, Dark: deep navy gradient */}
+    <section ref={sectionRef} className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-primary-950 dark:via-primary-950 dark:to-primary-900" />
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-primary-100/40 to-transparent dark:from-primary-800/10 opacity-60" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary-200/20 dark:bg-secondary-900/10 rounded-full blur-3xl" />
 
-      {/* Floating icons */}
-      <div className="absolute top-32 right-10 lg:right-32 animate-float">
-        <div className="glass-card p-4 shadow-xl">
+      <div className="absolute top-32 right-10 lg:right-32" data-hero-float>
+        <div className="glass-card p-4 shadow-xl animate-float">
           <Award className="w-8 h-8 text-primary-500 dark:text-primary-400" />
         </div>
       </div>
-      <div className="absolute top-60 left-10 lg:left-32 animate-float animate-delay-200">
-        <div className="glass-card p-4 shadow-xl">
+      <div className="absolute top-60 left-10 lg:left-32" data-hero-float>
+        <div className="glass-card p-4 shadow-xl animate-float animate-delay-200">
           <BookOpen className="w-8 h-8 text-secondary-500 dark:text-secondary-400" />
         </div>
       </div>
-      <div className="absolute bottom-40 right-20 lg:right-40 animate-float animate-delay-400">
-        <div className="glass-card p-4 shadow-xl">
+      <div className="absolute bottom-40 right-20 lg:right-40" data-hero-float>
+        <div className="glass-card p-4 shadow-xl animate-float animate-delay-400">
           <Trophy className="w-8 h-8 text-accent-500 dark:text-accent-400" />
         </div>
       </div>
 
       <div className="container-custom relative z-10">
-        <div className="max-w-4xl mx-auto text-center animate-fade-in-up">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100 dark:bg-primary-800/40 text-primary-700 dark:text-primary-300 text-sm font-medium mb-6 border border-primary-200 dark:border-primary-700/50">
+        <div className="max-w-4xl mx-auto text-center">
+          <div data-hero-badge className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100 dark:bg-primary-800/40 text-primary-700 dark:text-primary-300 text-sm font-medium mb-6 border border-primary-200 dark:border-primary-700/50">
             <Sparkles className="w-4 h-4" />
             <span>1000+ o&apos;quvchi sertifikat oldi — 100% natija!</span>
           </div>
 
-          <h1 className="font-[family-name:var(--font-display)] text-4xl sm:text-5xl lg:text-6xl font-extrabold text-primary-900 dark:text-white leading-tight mb-6">
+          <h1 data-hero-title className="font-[family-name:var(--font-display)] text-4xl sm:text-5xl lg:text-6xl font-extrabold text-primary-900 dark:text-white leading-tight mb-6">
             <span className="gradient-text">Aka-Uka</span>{" "}
             Ta&apos;lim Markazi —{" "}
             <span className="gradient-text">natijaga</span> olib chiqamiz
           </h1>
 
-          <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p data-hero-desc className="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed">
             Tajribali ustozlar, individual yondashuv va zamonaviy metodikalar bilan
             o&apos;quvchilarni sertifikat imtihonlariga tayyorlaymiz. Ishtixon tumani.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+          <div data-hero-buttons className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
             <a
               href="#contact"
               className="px-8 py-4 rounded-2xl gradient-bg text-white font-bold text-lg shadow-xl shadow-primary-500/25 hover:shadow-2xl hover:shadow-primary-500/35 transition-all hover:-translate-y-1 flex items-center justify-center gap-2 group"
             >
-              Bepul konsultatsiya
+              Murojaat qilish
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
@@ -70,7 +73,7 @@ export default function Hero() {
             </a>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-6">
+          <div data-hero-stats className="flex flex-wrap items-center justify-center gap-6">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl bg-secondary-100 dark:bg-secondary-900/30 flex items-center justify-center">
                 <TrendingUp className="w-6 h-6 text-secondary-600 dark:text-secondary-400" />

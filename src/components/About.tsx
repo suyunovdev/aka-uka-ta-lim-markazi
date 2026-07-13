@@ -1,4 +1,7 @@
+"use client";
+
 import { GraduationCap, Target, Users, ClipboardCheck, Lightbulb, TrendingUp } from "lucide-react";
+import { useScrollReveal, useStaggerReveal } from "@/hooks/useAnimations";
 
 const features = [
   { icon: <GraduationCap className="w-7 h-7" />, title: "Tajribali ustozlar", description: "30+ professional ustoz boshqaruvida sifatli ta'lim", color: "primary" },
@@ -16,10 +19,13 @@ const colorClasses: Record<string, string> = {
 };
 
 export default function About() {
+  const headingRef = useScrollReveal<HTMLDivElement>();
+  const gridRef = useStaggerReveal<HTMLDivElement>({ stagger: 0.12 });
+
   return (
     <section id="about" className="section-padding section-alt">
       <div className="container-custom">
-        <div className="text-center mb-16">
+        <div ref={headingRef} className="text-center mb-16">
           <span className="inline-block px-4 py-2 rounded-full bg-primary-100 dark:bg-primary-800/40 text-primary-700 dark:text-primary-300 text-sm font-medium mb-4 border border-primary-200 dark:border-primary-700/50">
             Biz haqimizda
           </span>
@@ -32,7 +38,7 @@ export default function About() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={gridRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
             <div key={index} className="glass-card p-8 hover-lift group cursor-default">
               <div className={`w-16 h-16 rounded-2xl ${colorClasses[feature.color]} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>

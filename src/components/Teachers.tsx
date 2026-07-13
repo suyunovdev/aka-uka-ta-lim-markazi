@@ -1,11 +1,17 @@
+"use client";
+
 import Image from "next/image";
 import { teachers } from "@/lib/data";
+import { useScrollReveal, useStaggerReveal } from "@/hooks/useAnimations";
 
 export default function Teachers() {
+  const headingRef = useScrollReveal<HTMLDivElement>();
+  const gridRef = useStaggerReveal<HTMLDivElement>({ stagger: 0.08, y: 40 });
+
   return (
     <section id="teachers" className="section-padding section-alt">
       <div className="container-custom">
-        <div className="text-center mb-16">
+        <div ref={headingRef} className="text-center mb-16">
           <span className="inline-block px-4 py-2 rounded-full bg-accent-100 dark:bg-accent-800/30 text-accent-700 dark:text-accent-300 text-sm font-medium mb-4 border border-accent-200 dark:border-accent-700/50">
             Ustozlar
           </span>
@@ -17,7 +23,7 @@ export default function Teachers() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
           {teachers.map((teacher, index) => (
             <div key={index} className="glass-card p-6 hover-lift group text-center">
               <div className="relative w-28 h-28 rounded-full mx-auto mb-4 overflow-hidden ring-3 ring-primary-100 dark:ring-primary-800/40">

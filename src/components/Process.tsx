@@ -1,4 +1,7 @@
+"use client";
+
 import { Target, Users, BookOpen, Zap, FileText, Award, Trophy } from "lucide-react";
+import { useScrollReveal, useProcessAnimation } from "@/hooks/useAnimations";
 
 const steps = [
   { icon: <Target className="w-6 h-6" />, title: "Diagnostik test", description: "Bilim darajasini aniqlash" },
@@ -11,10 +14,13 @@ const steps = [
 ];
 
 export default function Process() {
+  const headingRef = useScrollReveal<HTMLDivElement>();
+  const processRef = useProcessAnimation<HTMLDivElement>();
+
   return (
     <section className="section-padding section-alt">
       <div className="container-custom">
-        <div className="text-center mb-16">
+        <div ref={headingRef} className="text-center mb-16">
           <span className="inline-block px-4 py-2 rounded-full bg-secondary-100 dark:bg-secondary-800/40 text-secondary-700 dark:text-secondary-300 text-sm font-medium mb-4 border border-secondary-200 dark:border-secondary-700/50">
             O&apos;quv jarayoni
           </span>
@@ -26,11 +32,11 @@ export default function Process() {
           </p>
         </div>
 
-        <div className="relative">
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 -translate-y-1/2 rounded-full" />
+        <div ref={processRef} className="relative">
+          <div data-process-line className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 -translate-y-1/2 rounded-full" />
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-6 relative">
             {steps.map((step, index) => (
-              <div key={index} className="flex flex-col items-center text-center group">
+              <div key={index} data-process-step className="flex flex-col items-center text-center group">
                 <div className="relative z-10 mb-4">
                   <div className="w-16 h-16 rounded-2xl bg-white dark:bg-primary-900/50 shadow-lg border-2 border-primary-400 dark:border-primary-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <span className="text-primary-500 dark:text-primary-400">{step.icon}</span>

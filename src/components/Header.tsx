@@ -95,7 +95,7 @@ export default function Header() {
             href="#contact"
             className="px-5 py-2.5 rounded-xl gradient-bg text-white font-semibold hover:shadow-lg hover:shadow-primary-500/25 transition-all hover:-translate-y-0.5"
           >
-            Bepul konsultatsiya
+            Murojaat qilish
           </a>
         </div>
 
@@ -132,7 +132,7 @@ export default function Header() {
               onClick={() => setMobileMenuOpen(false)}
               className="mt-2 px-4 py-3 rounded-xl gradient-bg text-white font-semibold text-center"
             >
-              Bepul konsultatsiya
+              Murojaat qilish
             </a>
           </nav>
         </div>

@@ -1,7 +1,11 @@
+"use client";
+
 import {
   Calculator, Atom, FlaskConical, Dna, Monitor, ScrollText,
   Globe, BookMarked, Languages, LetterText, Speech, GraduationCap,
 } from "lucide-react";
+import { useScrollReveal, useStaggerReveal } from "@/hooks/useAnimations";
+import { subjects } from "@/lib/data";
 
 const iconMap: Record<string, React.ReactNode> = {
   Calculator: <Calculator className="w-7 h-7" />,
@@ -33,13 +37,14 @@ const colors = [
   "from-secondary-500 to-primary-600",
 ];
 
-import { subjects } from "@/lib/data";
-
 export default function Subjects() {
+  const headingRef = useScrollReveal<HTMLDivElement>();
+  const gridRef = useStaggerReveal<HTMLDivElement>({ stagger: 0.08, y: 40 });
+
   return (
     <section id="subjects" className="section-padding">
       <div className="container-custom">
-        <div className="text-center mb-16">
+        <div ref={headingRef} className="text-center mb-16">
           <span className="inline-block px-4 py-2 rounded-full bg-secondary-100 dark:bg-secondary-800/40 text-secondary-700 dark:text-secondary-300 text-sm font-medium mb-4 border border-secondary-200 dark:border-secondary-700/50">
             Fanlar
           </span>
@@ -51,7 +56,7 @@ export default function Subjects() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 lg:gap-6">
+        <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 lg:gap-6">
           {subjects.map((subject, index) => (
             <div key={index} className="glass-card p-6 hover-lift group cursor-default text-center">
               <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${colors[index % colors.length]} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg`}>

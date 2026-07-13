@@ -3,14 +3,17 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { faqs } from "@/lib/data";
+import { useScrollReveal, useStaggerReveal } from "@/hooks/useAnimations";
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const headingRef = useScrollReveal<HTMLDivElement>();
+  const listRef = useStaggerReveal<HTMLDivElement>({ stagger: 0.1, y: 30 });
 
   return (
     <section className="section-padding">
       <div className="container-custom">
-        <div className="text-center mb-16">
+        <div ref={headingRef} className="text-center mb-16">
           <span className="inline-block px-4 py-2 rounded-full bg-accent-100 dark:bg-accent-800/30 text-accent-700 dark:text-accent-300 text-sm font-medium mb-4 border border-accent-200 dark:border-accent-700/50">
             FAQ
           </span>
@@ -19,7 +22,7 @@ export default function FAQ() {
           </h2>
         </div>
 
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div ref={listRef} className="max-w-3xl mx-auto space-y-4">
           {faqs.map((faq, index) => (
             <div key={index} className="glass-card overflow-hidden">
               <button

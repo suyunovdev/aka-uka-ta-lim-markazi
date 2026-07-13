@@ -3,14 +3,17 @@
 import Image from "next/image";
 import { useState } from "react";
 import { books } from "@/lib/data";
+import { useScrollReveal, useStaggerReveal } from "@/hooks/useAnimations";
 
 export default function Books() {
   const [selected, setSelected] = useState<number | null>(null);
+  const headingRef = useScrollReveal<HTMLDivElement>();
+  const gridRef = useStaggerReveal<HTMLDivElement>({ stagger: 0.1, y: 40 });
 
   return (
     <section id="books" className="section-padding section-alt">
       <div className="container-custom">
-        <div className="text-center mb-16">
+        <div ref={headingRef} className="text-center mb-16">
           <span className="inline-block px-4 py-2 rounded-full bg-primary-100 dark:bg-primary-800/40 text-primary-700 dark:text-primary-300 text-sm font-medium mb-4 border border-primary-200 dark:border-primary-700/50">
             Kitoblar
           </span>
@@ -22,7 +25,7 @@ export default function Books() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
           {books.map((book, index) => (
             <div
               key={index}
