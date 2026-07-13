@@ -81,7 +81,7 @@ export default function Contact() {
               Biz bilan bog&apos;laning
             </h2>
             <p className="text-slate-600 dark:text-slate-300 mb-8">
-              Formani to&apos;ldiring va biz sizga 24 soat ichida bog&apos;lanamiz.
+              Formani to&apos;ldiring va biz tez orada siz bilan bog&apos;lanamiz.
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -259,7 +259,7 @@ export default function Contact() {
               Muvaffaqiyatli yuborildi!
             </h3>
             <p className="text-slate-600 dark:text-slate-300 mb-6">
-              Murojaatingiz qabul qilindi. Biz sizga 24 soat ichida bog&apos;lanamiz.
+              Murojaatingiz qabul qilindi. Tez orada siz bilan bog&apos;lanamiz.
             </p>
             <button
               onClick={() => setShowModal(false)}
