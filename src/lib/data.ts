@@ -21,30 +21,126 @@ export interface Teacher {
 }
 
 export const teachers: Teacher[] = [
-  { name: "Vafoxonov Rahmonjon", subject: "Ona tili va adabiyot", image: "/images/teachers/vafoxonov_rahmonjon.webp" },
-  { name: "Sunnatilla Mardiyev", subject: "Biologiya va Kimyo", image: "/images/teachers/sunnatilla_mardiyev.webp" },
-  { name: "Boliboyev Shahboz", subject: "Matematika", image: "/images/teachers/boliboyev_shahboz.webp" },
-  { name: "Bratov Javohir", subject: "Ingliz tili", image: "/images/teachers/bratov_javohir.webp" },
-  { name: "Rahimov Hasan", subject: "Rus tili", image: "/images/teachers/rahimov_hasan.webp" },
-  { name: "Aktamov G'iyosiddin", subject: "Ingliz tili", image: "/images/teachers/aktam_giyosiddin.webp" },
-  { name: "Po'latov Shamshodbek", subject: "Ingliz tili", image: "/images/teachers/shamshodbek_polatov.webp" },
-  { name: "Toshqulov Hasan", subject: "Matematika", image: "/images/teachers/toshqulov_hasan.webp" },
-  { name: "Tirkashev Shomansur", subject: "Fizika", image: "/images/teachers/tirkashev_shomansur.webp" },
-  { name: "Sharafov Abbos", subject: "Kimyo", image: "/images/teachers/sharafov_abbos.webp" },
-  { name: "Oqbutayev Hasan", subject: "Ona tili va adabiyot", image: "/images/teachers/oqbutayev_hasan.webp" },
-  { name: "Ibragimova Farangiz", subject: "Ingliz tili va huquq", image: "/images/teachers/ibragimova_farangiz.webp" },
-  { name: "Amanov Maqsud", subject: "SAT", image: "/images/teachers/amanov_maqsud.webp" },
-  { name: "Muzrobov Abdurahmon", subject: "Turk tili", image: "/images/teachers/muzrobov_abdurahmon.webp" },
-  { name: "Boliboyev Shohruz", subject: "Matematika", image: "/images/teachers/boliboyev_shohruz.webp" },
-  { name: "Yusupova Dilobar", subject: "Matematika", image: "/images/teachers/dilobar_fazilboy_qizi.webp" },
-  { name: "Vafoxonov Rasul", subject: "Ona tili va adabiyot", image: "/images/teachers/vafoxonov_rasul.webp" },
-  { name: "Abdulxayeva Zuxra", subject: "Ona tili va adabiyot", image: "/images/teachers/abdulxayeva_zuxra.webp" },
-  { name: "Arzimurodov Jo'rabek", subject: "Matematika", image: "/images/teachers/arzimurodov_jorabek.webp" },
-  { name: "Berdanov Muxlisjon", subject: "Matematika", image: "/images/teachers/berdanov_muxlisjon.webp" },
-  { name: "Xolmurodov Dilshod", subject: "Matematika", image: "/images/teachers/xolmurodov_dilshod.webp" },
-  { name: "Hamroyev Abdulaziz", subject: "Matematika", image: "/images/teachers/hamroyev_abdulaziz.webp" },
-  { name: "Jabborova Madina", subject: "Ingliz tili", image: "/images/teachers/jabborova_madina.webp" },
-  { name: "Normamatova Mo'tabar", subject: "Ona tili va adabiyot", image: "/images/teachers/normamatova_motabar.webp" },
+  {
+    name: "Vafoxonov Rahmonjon",
+    subject: "Ona tili va adabiyot",
+    image: "/images/teachers/vafoxonov_rahmonjon.webp",
+  },
+  {
+    name: "Sunnatilla Mardiyev",
+    subject: "Biologiya va Kimyo",
+    image: "/images/teachers/sunnatilla_mardiyev.webp",
+  },
+  {
+    name: "Boliboyev Shahboz",
+    subject: "Matematika",
+    image: "/images/teachers/boliboyev_shahboz.webp",
+  },
+  {
+    name: "Bratov Javohir",
+    subject: "Ingliz tili",
+    image: "/images/teachers/bratov_javohir.webp",
+  },
+  {
+    name: "Rahimov Hasan",
+    subject: "Rus tili",
+    image: "/images/teachers/rahimov_hasan.webp",
+  },
+  {
+    name: "Aktamov G'iyosiddin",
+    subject: "Ingliz tili",
+    image: "/images/teachers/aktam_giyosiddin.webp",
+  },
+  {
+    name: "Po'latov Shamshodbek",
+    subject: "Ingliz tili",
+    image: "/images/teachers/shamshodbek_polatov.webp",
+  },
+  {
+    name: "Toshqulov Hasan",
+    subject: "Matematika",
+    image: "/images/teachers/toshqulov_hasan.webp",
+  },
+  {
+    name: "Tirkashev Shomansur",
+    subject: "Fizika",
+    image: "/images/teachers/tirkashev_shomansur.webp",
+  },
+  {
+    name: "Sharafov Abbos",
+    subject: "Kimyo",
+    image: "/images/teachers/sharafov_abbos.webp",
+  },
+  {
+    name: "Oqbutayev Javohir",
+    subject: "Ona tili va adabiyot",
+    image: "/images/teachers/oqbutayev_hasan.webp",
+  },
+  {
+    name: "Ibragimova Farangiz",
+    subject: "Ingliz tili va huquq",
+    image: "/images/teachers/ibragimova_farangiz.webp",
+  },
+  {
+    name: "Amanov Maqsud",
+    subject: "SAT",
+    image: "/images/teachers/amanov_maqsud.webp",
+  },
+  {
+    name: "Muzrobov Abdurahmon",
+    subject: "Turk tili",
+    image: "/images/teachers/muzrobov_abdurahmon.webp",
+  },
+  {
+    name: "Boliboyev Shohruz",
+    subject: "Matematika",
+    image: "/images/teachers/boliboyev_shohruz.webp",
+  },
+  {
+    name: "Dilobar",
+    subject: "Matematika",
+    image: "/images/teachers/dilobar_fazilboy_qizi.webp",
+  },
+  {
+    name: "Vafoxonov Rasul",
+    subject: "Ona tili va adabiyot",
+    image: "/images/teachers/vafoxonov_rasul.webp",
+  },
+  {
+    name: "Abdulxayeva Zuxra",
+    subject: "Biologiya",
+    image: "/images/teachers/abdulxayeva_zuxra.webp",
+  },
+  {
+    name: "Arzimurodov Jo'rabek",
+    subject: "Ingliz tili",
+    image: "/images/teachers/arzimurodov_jorabek.webp",
+  },
+  {
+    name: "Berdanov Muxlisjon",
+    subject: "Tarix",
+    image: "/images/teachers/berdanov_muxlisjon.webp",
+  },
+  {
+    name: "Xolmurodov Dilshod",
+    subject: "Matematika",
+    image: "/images/teachers/xolmurodov_dilshod.webp",
+  },
+  {
+    name: "Hamroyev Abdulaziz",
+    subject: "Matematika",
+    image: "/images/teachers/hamroyev_abdulaziz.webp",
+  },
+  {
+    name: "Jabborova Madina",
+    subject: "Ingliz tili",
+    image: "/images/teachers/jabborova_madina.webp",
+  },
+  {
+    name: "Normamatova Mo'tabar",
+    subject: "Ingliz tili",
+    image: "/images/teachers/normamatova_motabar.webp",
+  },
 ];
 
 export interface CertificateResult {
