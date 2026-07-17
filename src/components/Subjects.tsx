@@ -54,6 +54,10 @@ export default function Subjects() {
           <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
             O&apos;rta maktabdagi barcha fanlar bo&apos;yicha sertifikat imtihonlariga tayyorgarlik.
           </p>
+          <div className="inline-flex items-center gap-2 mt-4 px-6 py-3 rounded-2xl bg-gradient-to-r from-primary-500 to-secondary-500 text-white shadow-lg">
+            <span className="text-lg font-bold">Oylik narx:</span>
+            <span className="text-2xl font-extrabold">400 000 so&apos;m</span>
+          </div>
         </div>
 
         <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 lg:gap-6">

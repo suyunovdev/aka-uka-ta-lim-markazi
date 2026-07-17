@@ -21,7 +21,7 @@ export default function CTA() {
             topshiring
           </h2>
           <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
-            Cheklangan o&apos;rinlar mavjud. Bugun murojaat qiling va kelajagingizni biz bilan quring!
+            Barcha fanlar — oyiga atigi <span className="font-extrabold text-accent-300">400 000 so&apos;m</span>. Cheklangan o&apos;rinlar mavjud!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
